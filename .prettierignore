@@ -1,0 +1,9 @@
+dist/
+.astro/
+node_modules/
+package-lock.json
+
+# Hand-written docs: leave formatting to the author.
+CLAUDE.md
+AGENTS.md
+docs/

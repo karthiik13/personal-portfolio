@@ -11,18 +11,18 @@ const links = [
 
 <header class="frame site-header">
 	<nav class="nav" aria-label="Main">
-		<a class="name" href="/">Karthik Sudarsan</a>
+		<a class="name" href="/">
+			Karthik Sudarsan
+		</a>
 
 		<ul class="links" role="list">
-			{
-				links.map((link) => (
-					<li>
-						<a class="label" href={link.href}>
-							{link.label}
-						</a>
-					</li>
-				))
-			}
+			{links.map((link) => (
+				<li>
+					<a class="label" href={link.href}>
+						{link.label}
+					</a>
+				</li>
+			))}
 		</ul>
 
 		<div class="actions">
