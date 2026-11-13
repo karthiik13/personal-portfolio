@@ -1,0 +1,147 @@
+---
+import { getEntry } from 'astro:content';
+
+const hero = await getEntry('home', 'hero');
+if (!hero) throw new Error('Missing src/content/home/hero.md');
+
+const { heading, intro, links, now, photo, photoAlt } = hero.data;
+const isExternal = (href: string) => href.startsWith('http');
+---
+
+<section class="hero" aria-labelledby="hero-heading">
+	<div class="cell intro-cell">
+		<h1 id="hero-heading">
+			<span class="visually-hidden">Karthik Sudarsan, </span>{heading}
+		</h1>
+
+		<div class="intro">
+			{intro.map((line) => <p>{line}</p>)}
+		</div>
+
+		<ul class="links" role="list">
+			{
+				links.map((link) => (
+					<li>
+						<a
+							class="label"
+							href={link.href}
+							{...(isExternal(link.href) && { target: '_blank', rel: 'noopener' })}
+						>
+							{link.label}
+							{isExternal(link.href) && (
+								<>
+									<span aria-hidden="true"> ↗</span>
+									<span class="visually-hidden"> (opens in a new tab)</span>
+								</>
+							)}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+
+	<div class="cell side-cell">
+		{
+			photo ? (
+				<img class="photo" src={photo} alt={photoAlt ?? 'Portrait of Karthik Sudarsan'} width="400" height="500" />
+			) : (
+				<div class="photo photo-placeholder" aria-hidden="true">
+					<span class="label">Photo</span>
+				</div>
+			)
+		}
+		<p class="now">
+			<span class="label now-label">Now ·</span>
+			{now}
+		</p>
+	</div>
+</section>
+
+<style>
+	.hero {
+		display: flex;
+		flex-wrap: wrap;
+		border-bottom: var(--hairline);
+	}
+
+	.cell {
+		padding: var(--space-12) var(--gutter);
+	}
+
+	.intro-cell {
+		flex: 999 1 36rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		gap: var(--space-8);
+	}
+
+	/* Hairline between cells; when wrapped, the border sits on top instead. */
+	.side-cell {
+		flex: 1 1 18rem;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-4);
+		border-left: var(--hairline);
+		margin-left: -1px;
+		box-shadow: 0 -1px 0 var(--line);
+	}
+
+	h1 {
+		font-size: var(--text-display);
+	}
+
+	.intro {
+		max-width: 38rem;
+		font-size: var(--text-lg);
+		color: var(--muted);
+	}
+
+	.intro p + p {
+		margin-top: var(--space-2);
+	}
+
+	.links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--space-2) var(--space-6);
+		padding: 0;
+		list-style: none;
+	}
+
+	.links a {
+		display: inline-block;
+		padding-block: var(--space-2);
+		text-decoration: underline;
+		text-decoration-color: var(--line);
+		text-underline-offset: 0.3em;
+	}
+
+	.links a:hover {
+		color: var(--accent);
+		text-decoration-color: currentColor;
+	}
+
+	.photo {
+		width: 100%;
+		aspect-ratio: 4 / 5;
+		object-fit: cover;
+	}
+
+	.photo-placeholder {
+		display: grid;
+		place-items: center;
+		border: var(--hairline);
+		color: var(--muted);
+	}
+
+	.now {
+		font-size: var(--text-sm);
+	}
+
+	.now-label {
+		color: var(--accent);
+		margin-right: var(--space-1);
+	}
+</style>
