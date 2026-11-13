@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
+import { getHero } from '../lib/content';
+
+const hero = await getHero();
 ---
 
 <BaseLayout
@@ -8,6 +11,6 @@ import Hero from '../components/Hero.astro';
 	description="Software engineer moving into AI engineering. Projects, experience and contact."
 >
 	<main id="main" class="frame">
-		<Hero />
+		<Hero {...hero} />
 	</main>
 </BaseLayout>

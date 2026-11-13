@@ -1,56 +1,60 @@
 ---
-import { getEntry } from 'astro:content';
+import type { HeroContent } from '../lib/content';
 
-const hero = await getEntry('home', 'hero');
-if (!hero) throw new Error('Missing src/content/home/hero.md');
+type Props = HeroContent;
 
-const { heading, intro, links, now, photo, photoAlt } = hero.data;
+const { heading, intro, links, now, photo, photoAlt } = Astro.props;
 const isExternal = (href: string) => href.startsWith('http');
 ---
 
 <section class="hero" aria-labelledby="hero-heading">
 	<div class="cell intro-cell">
 		<h1 id="hero-heading">
-			<span class="visually-hidden">Karthik Sudarsan, </span>{heading}
+			<span class="visually-hidden">Karthik Sudarsan, </span>
+			{heading}
 		</h1>
 
 		<div class="intro">
-			{intro.map((line) => <p>{line}</p>)}
+			{intro.map((line) => (
+				<p>{line}</p>
+			))}
 		</div>
 
 		<ul class="links" role="list">
-			{
-				links.map((link) => (
-					<li>
-						<a
-							class="label"
-							href={link.href}
-							{...(isExternal(link.href) && { target: '_blank', rel: 'noopener' })}
-						>
-							{link.label}
-							{isExternal(link.href) && (
-								<>
-									<span aria-hidden="true"> ↗</span>
-									<span class="visually-hidden"> (opens in a new tab)</span>
-								</>
-							)}
-						</a>
-					</li>
-				))
-			}
+			{links.map((link) => (
+				<li>
+					<a
+						class="label"
+						href={link.href}
+						{...(isExternal(link.href) && { target: '_blank', rel: 'noopener' })}
+					>
+						{link.label}
+						{isExternal(link.href) && (
+							<>
+								<span aria-hidden="true"> ↗</span>
+								<span class="visually-hidden"> (opens in a new tab)</span>
+							</>
+						)}
+					</a>
+				</li>
+			))}
 		</ul>
 	</div>
 
 	<div class="cell side-cell">
-		{
-			photo ? (
-				<img class="photo" src={photo} alt={photoAlt ?? 'Portrait of Karthik Sudarsan'} width="400" height="500" />
-			) : (
-				<div class="photo photo-placeholder" aria-hidden="true">
-					<span class="label">Photo</span>
-				</div>
-			)
-		}
+		{photo ? (
+			<img
+				class="photo"
+				src={photo}
+				alt={photoAlt ?? 'Portrait of Karthik Sudarsan'}
+				width="400"
+				height="500"
+			/>
+		) : (
+			<div class="photo photo-placeholder" aria-hidden="true">
+				<span class="label">Photo</span>
+			</div>
+		)}
 		<p class="now">
 			<span class="label now-label">Now ·</span>
 			{now}
