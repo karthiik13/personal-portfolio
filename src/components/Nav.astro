@@ -1,0 +1,126 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+// Leading "/" keeps these working from project pages too.
+const links = [
+	{ href: '/#projects', label: 'Projects' },
+	{ href: '/#experience', label: 'Experience' },
+	{ href: '/#contact', label: 'Contact' },
+];
+---
+
+<header class="frame site-header">
+	<nav class="nav" aria-label="Main">
+		<a class="name" href="/">Karthik Sudarsan</a>
+
+		<ul class="links" role="list">
+			{
+				links.map((link) => (
+					<li>
+						<a class="label" href={link.href}>
+							{link.label}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+
+		<div class="actions">
+			<ThemeToggle />
+			<a class="resume label" href="/Karthik-Sudarsan-Resume.pdf" target="_blank" rel="noopener">
+				Résumé <span aria-hidden="true">↓</span>
+				<span class="visually-hidden">(PDF, opens in a new tab)</span>
+			</a>
+		</div>
+	</nav>
+</header>
+
+<style>
+	.site-header {
+		border-bottom: var(--hairline);
+	}
+
+	/* Desktop: name | links | actions, separated by hairlines. */
+	.nav {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		grid-template-areas: 'name links actions';
+		align-items: stretch;
+	}
+
+	.name,
+	.links,
+	.actions {
+		display: flex;
+		align-items: center;
+		padding: var(--space-3) var(--gutter);
+	}
+
+	.name {
+		grid-area: name;
+		font-weight: 600;
+		letter-spacing: -0.02em;
+		text-decoration: none;
+		border-right: var(--hairline);
+	}
+
+	.links {
+		grid-area: links;
+		gap: var(--space-6);
+		list-style: none;
+	}
+
+	.links a {
+		display: inline-block;
+		padding-block: var(--space-2);
+		text-decoration: none;
+		color: var(--muted);
+	}
+
+	.actions {
+		grid-area: actions;
+		gap: var(--space-3);
+		border-left: var(--hairline);
+	}
+
+	.name:hover,
+	.links a:hover {
+		color: var(--accent);
+	}
+
+	.resume {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-1);
+		min-height: 2.75rem;
+		padding-inline: var(--space-4);
+		background: var(--accent);
+		color: var(--on-accent);
+		border: 1px solid var(--accent);
+		text-decoration: none;
+	}
+
+	.resume:hover {
+		background: transparent;
+		color: var(--accent);
+	}
+
+	/* Phones: name + actions on top, links on their own row below. */
+	@media (max-width: 40rem) {
+		.nav {
+			grid-template-columns: 1fr auto;
+			grid-template-areas:
+				'name actions'
+				'links links';
+		}
+
+		.name {
+			border-right: 0;
+		}
+
+		.links {
+			border-top: var(--hairline);
+			gap: var(--space-4);
+		}
+	}
+</style>

@@ -1,5 +1,6 @@
 ---
 import { Font } from 'astro:assets';
+import Nav from '../components/Nav.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -36,6 +37,27 @@ const { title, description } = Astro.props;
 		<Font cssVariable="--font-geist-mono" />
 	</head>
 	<body>
+		<a class="skip-link label" href="#main">Skip to content</a>
+		<Nav />
 		<slot />
 	</body>
 </html>
+
+<style>
+	/* Hidden until focused with the keyboard. */
+	.skip-link {
+		position: absolute;
+		top: var(--space-2);
+		left: var(--space-2);
+		z-index: 10;
+		padding: var(--space-2) var(--space-4);
+		background: var(--accent);
+		color: var(--on-accent);
+		text-decoration: none;
+		transform: translateY(-200%);
+	}
+
+	.skip-link:focus {
+		transform: none;
+	}
+</style>
