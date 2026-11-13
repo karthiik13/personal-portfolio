@@ -1,0 +1,41 @@
+---
+import { Font } from 'astro:assets';
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+	description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<!--
+			Runs before first paint so the saved theme is applied immediately (no flash).
+			is:inline keeps Astro from bundling/deferring it.
+		-->
+		<script is:inline>
+			try {
+				const theme = localStorage.getItem('theme');
+				if (theme === 'light' || theme === 'dark') {
+					document.documentElement.dataset.theme = theme;
+				}
+			} catch {}
+		</script>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="generator" content={Astro.generator} />
+		<Font cssVariable="--font-geist" preload />
+		<Font cssVariable="--font-geist-mono" />
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>

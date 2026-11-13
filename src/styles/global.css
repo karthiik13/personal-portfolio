@@ -1,0 +1,176 @@
+/* ==========================================================================
+   Design tokens
+   Light values live on :root. Dark values apply when:
+   - the system prefers dark AND the visitor hasn't forced light, or
+   - the visitor chose dark via the toggle (data-theme="dark" on <html>).
+   ========================================================================== */
+
+:root {
+	/* Colour */
+	--bg: #f4f2ec;
+	--ink: #141414;
+	--muted: #5c5c62;
+	--line: #d9d6cd;
+	--accent: #3b5bdb;
+	--on-accent: #ffffff;
+	color-scheme: light;
+
+	/* Type (font variables come from the Fonts API in astro.config.mjs) */
+	--font-sans: var(--font-geist), system-ui, sans-serif;
+	--font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+	--text-xs: 0.75rem;
+	--text-sm: 0.875rem;
+	--text-base: 1rem;
+	--text-lg: 1.25rem;
+	--text-xl: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
+	--text-2xl: clamp(2.5rem, 1.5rem + 4vw, 4.5rem);
+	--text-display: clamp(3.5rem, 1rem + 9vw, 9rem);
+
+	--tracking-tight: -0.05em;
+	--tracking-label: 0.08em;
+	--leading-tight: 0.95;
+	--leading-body: 1.55;
+
+	/* Layout */
+	--max-width: 1240px;
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 0.75rem;
+	--space-4: 1rem;
+	--space-6: 1.5rem;
+	--space-8: 2rem;
+	--space-12: 3rem;
+	--space-16: 4rem;
+	--gutter: clamp(1rem, 0.5rem + 2vw, 2rem);
+	--hairline: 1px solid var(--line);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme='light']) {
+		--bg: #0b0b0c;
+		--ink: #f2f1ec;
+		--muted: #a3a3a8;
+		--line: #26262a;
+		--accent: #7c9cff;
+		--on-accent: #0b0b0c;
+		color-scheme: dark;
+	}
+}
+
+:root[data-theme='dark'] {
+	--bg: #0b0b0c;
+	--ink: #f2f1ec;
+	--muted: #a3a3a8;
+	--line: #26262a;
+	--accent: #7c9cff;
+	--on-accent: #0b0b0c;
+	color-scheme: dark;
+}
+
+/* ==========================================================================
+   Reset
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+* {
+	margin: 0;
+}
+
+img,
+picture,
+svg,
+video {
+	display: block;
+	max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+html {
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+}
+
+body {
+	background: var(--bg);
+	color: var(--ink);
+	font-family: var(--font-sans);
+	font-size: var(--text-base);
+	line-height: var(--leading-body);
+	-webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+	font-weight: 600;
+	letter-spacing: var(--tracking-tight);
+	line-height: var(--leading-tight);
+	text-wrap: balance;
+}
+
+a {
+	color: inherit;
+}
+
+:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+
+/* Centred column framed by hairlines left and right. */
+.frame {
+	max-width: var(--max-width);
+	margin-inline: auto;
+	border-inline: var(--hairline);
+}
+
+/* Small uppercase mono label (nav, tags, section labels). */
+.label {
+	font-family: var(--font-mono);
+	font-size: var(--text-xs);
+	letter-spacing: var(--tracking-label);
+	text-transform: uppercase;
+}
+
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}

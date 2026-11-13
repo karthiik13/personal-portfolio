@@ -1,16 +1,30 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+	title="Karthik Sudarsan — Software engineer"
+	description="Software engineer moving into AI engineering. Projects, experience and contact."
+>
+	<main class="frame placeholder">
+		<p class="label">Base layout check</p>
+		<h1>Software engineer.</h1>
+		<p class="muted">Tokens, fonts and theme are wired up. Real sections come next.</p>
+	</main>
+</BaseLayout>
+
+<style>
+	.placeholder {
+		padding: var(--space-16) var(--gutter);
+		min-height: 100vh;
+	}
+
+	h1 {
+		font-size: var(--text-display);
+		margin-block: var(--space-4);
+	}
+
+	.muted {
+		color: var(--muted);
+	}
+</style>
