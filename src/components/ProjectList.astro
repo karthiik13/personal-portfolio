@@ -1,0 +1,121 @@
+---
+import type { Project } from '../lib/content';
+import { projectNumber } from '../lib/content';
+import ExternalLink from './ExternalLink.astro';
+import Tags from './Tags.astro';
+
+interface Props {
+	projects: Project[];
+}
+
+const { projects } = Astro.props;
+---
+
+<ol class="project-list" role="list">
+	{projects.map((project, i) => (
+		<li class="row">
+			<span class="num label">{projectNumber(i)}</span>
+
+			<div class="main">
+				<h3>
+					<a href={`/projects/${project.id}`}>{project.data.title}</a>
+				</h3>
+				{project.data.sample && <span class="label sample">Sample</span>}
+				<p class="summary">{project.data.summary}</p>
+			</div>
+
+			<div class="meta">
+				<Tags tags={project.data.tags} />
+				<div class="links">
+					<ExternalLink class="label" href={project.data.github}>
+						Code
+					</ExternalLink>
+					{project.data.demo && (
+						<ExternalLink class="label" href={project.data.demo}>
+							Demo
+						</ExternalLink>
+					)}
+				</div>
+			</div>
+		</li>
+	))}
+</ol>
+
+<style>
+	.project-list {
+		padding: 0;
+		list-style: none;
+	}
+
+	.row {
+		display: grid;
+		grid-template-columns: 4rem minmax(0, 1fr) minmax(0, 22rem);
+		gap: var(--space-4) var(--space-6);
+		padding: var(--space-8) var(--gutter);
+		border-bottom: var(--hairline);
+	}
+
+	.num {
+		color: var(--accent);
+		padding-top: var(--space-2);
+	}
+
+	h3 {
+		display: inline;
+		font-size: var(--text-xl);
+	}
+
+	h3 a {
+		text-decoration: none;
+	}
+
+	h3 a:hover {
+		color: var(--accent);
+	}
+
+	.sample {
+		margin-left: var(--space-3);
+		vertical-align: middle;
+		color: var(--muted);
+	}
+
+	.summary {
+		margin-top: var(--space-3);
+		max-width: 40rem;
+		color: var(--muted);
+	}
+
+	.meta {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-4);
+	}
+
+	.links {
+		display: flex;
+		gap: var(--space-6);
+	}
+
+	.links :global(a) {
+		padding-block: var(--space-2);
+		text-decoration: underline;
+		text-decoration-color: var(--line);
+		text-underline-offset: 0.3em;
+	}
+
+	.links :global(a:hover) {
+		color: var(--accent);
+		text-decoration-color: currentColor;
+	}
+
+	/* Phones/tablets: number in its own narrow column, everything else stacks. */
+	@media (max-width: 48rem) {
+		.row {
+			grid-template-columns: 2.5rem minmax(0, 1fr);
+		}
+
+		.meta {
+			grid-column: 2;
+		}
+	}
+</style>

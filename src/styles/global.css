@@ -163,6 +163,63 @@ a {
 	text-transform: uppercase;
 }
 
+/* Rendered Markdown (project pages, later sections). */
+.prose {
+	max-width: 44rem;
+}
+
+.prose > * + * {
+	margin-top: var(--space-4);
+}
+
+.prose h2 {
+	margin-top: var(--space-12);
+	font-size: var(--text-xl);
+}
+
+.prose h2:first-child {
+	margin-top: 0;
+}
+
+.prose h3 {
+	margin-top: var(--space-8);
+	font-size: var(--text-lg);
+}
+
+.prose ul,
+.prose ol {
+	padding-left: var(--space-6);
+}
+
+.prose li + li {
+	margin-top: var(--space-2);
+}
+
+.prose a {
+	text-decoration-color: var(--accent);
+	text-underline-offset: 0.2em;
+}
+
+.prose a:hover {
+	color: var(--accent);
+}
+
+.prose code {
+	font-family: var(--font-mono);
+	font-size: 0.9em;
+}
+
+.prose pre {
+	padding: var(--space-4);
+	overflow-x: auto;
+	border: var(--hairline);
+}
+
+.prose img,
+.prose video {
+	border: var(--hairline);
+}
+
 .visually-hidden {
 	position: absolute;
 	width: 1px;

@@ -22,4 +22,19 @@ const home = defineCollection({
 	}),
 });
 
-export const collections = { home };
+// One Markdown file per project; the filename becomes the URL slug.
+const projects = defineCollection({
+	loader: glob({ pattern: '*.md', base: './src/content/projects' }),
+	schema: z.object({
+		title: z.string(),
+		summary: z.string(),
+		tags: z.array(z.string()),
+		order: z.number(),
+		github: z.url(),
+		demo: z.url().optional(),
+		draft: z.boolean().default(false),
+		sample: z.boolean().default(false),
+	}),
+});
+
+export const collections = { home, projects };

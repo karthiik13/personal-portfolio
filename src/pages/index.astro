@@ -1,9 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
-import { getHero } from '../lib/content';
+import ProjectList from '../components/ProjectList.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { getHero, getProjects } from '../lib/content';
 
 const hero = await getHero();
+const projects = await getProjects();
 ---
 
 <BaseLayout
@@ -12,5 +15,10 @@ const hero = await getHero();
 >
 	<main id="main" class="frame">
 		<Hero {...hero} />
+
+		<section id="projects" aria-labelledby="projects-heading">
+			<SectionHeader number="01" title="Projects" id="projects-heading" />
+			<ProjectList projects={projects} />
+		</section>
 	</main>
 </BaseLayout>

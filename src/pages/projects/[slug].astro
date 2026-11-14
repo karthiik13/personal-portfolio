@@ -1,0 +1,133 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ExternalLink from '../../components/ExternalLink.astro';
+import Tags from '../../components/Tags.astro';
+import { getProjects, projectNumber, type Project } from '../../lib/content';
+
+// One static page per published project, at /projects/<filename>.
+export async function getStaticPaths() {
+	const projects = await getProjects();
+	return projects.map((project, i) => ({
+		params: { slug: project.id },
+		props: { project, number: projectNumber(i) },
+	}));
+}
+
+interface Props {
+	project: Project;
+	number: string;
+}
+
+const { project, number } = Astro.props;
+const { title, summary, tags, github, demo, sample } = project.data;
+const { Content } = await render(project);
+---
+
+<BaseLayout title={`${title} — Karthik Sudarsan`} description={summary}>
+	<main id="main" class="frame">
+		<article>
+			<header class="project-header">
+				<a class="back label" href="/#projects">
+					← All projects
+				</a>
+
+				<p class="num" aria-hidden="true">
+					{number}
+				</p>
+				<h1>{title}</h1>
+				{sample && <p class="label sample">Sample project — not built yet</p>}
+				<p class="summary">{summary}</p>
+
+				<div class="meta">
+					<Tags tags={tags} />
+					<div class="links">
+						<ExternalLink class="label" href={github}>
+							Code
+						</ExternalLink>
+						{demo && (
+							<ExternalLink class="label" href={demo}>
+								Demo
+							</ExternalLink>
+						)}
+					</div>
+				</div>
+			</header>
+
+			<div class="prose body">
+				<Content />
+			</div>
+		</article>
+	</main>
+</BaseLayout>
+
+<style>
+	.project-header {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-4);
+		padding: var(--space-12) var(--gutter);
+		border-bottom: var(--hairline);
+	}
+
+	.back {
+		align-self: flex-start;
+		padding-block: var(--space-2);
+		text-decoration: none;
+		color: var(--muted);
+	}
+
+	.back:hover {
+		color: var(--accent);
+	}
+
+	.num {
+		font-size: var(--text-2xl);
+		font-weight: 600;
+		letter-spacing: var(--tracking-tight);
+		line-height: var(--leading-tight);
+		color: var(--accent);
+	}
+
+	h1 {
+		font-size: var(--text-display);
+	}
+
+	.sample {
+		color: var(--muted);
+	}
+
+	.summary {
+		max-width: 40rem;
+		font-size: var(--text-lg);
+		color: var(--muted);
+	}
+
+	.meta {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--space-4) var(--space-8);
+	}
+
+	.links {
+		display: flex;
+		gap: var(--space-6);
+	}
+
+	.links :global(a) {
+		padding-block: var(--space-2);
+		text-decoration: underline;
+		text-decoration-color: var(--line);
+		text-underline-offset: 0.3em;
+	}
+
+	.links :global(a:hover) {
+		color: var(--accent);
+		text-decoration-color: currentColor;
+	}
+
+	.body {
+		padding: var(--space-12) var(--gutter) var(--space-16);
+	}
+</style>
