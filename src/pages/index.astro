@@ -5,12 +5,14 @@ import ExperienceList from '../components/ExperienceList.astro';
 import Hero from '../components/Hero.astro';
 import ProjectList from '../components/ProjectList.astro';
 import SectionHeader from '../components/SectionHeader.astro';
-import { getEducation, getExperience, getHero, getProjects } from '../lib/content';
+import SkillList from '../components/SkillList.astro';
+import { getEducation, getExperience, getHero, getProjects, getSkills } from '../lib/content';
 
 const hero = await getHero();
 const projects = await getProjects();
 const jobs = await getExperience();
 const education = await getEducation();
+const skills = await getSkills();
 ---
 
 <BaseLayout
@@ -29,6 +31,11 @@ const education = await getEducation();
 			<SectionHeader number="02" title="Experience" id="experience-heading" />
 			<ExperienceList jobs={jobs} />
 			<EducationList entries={education} />
+		</section>
+
+		<section id="skills" aria-labelledby="skills-heading">
+			<SectionHeader number="03" title="Skills" id="skills-heading" />
+			<SkillList groups={skills} />
 		</section>
 	</main>
 </BaseLayout>

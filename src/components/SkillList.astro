@@ -1,0 +1,106 @@
+---
+import type { SkillGroup } from '../lib/content';
+
+interface Props {
+	groups: SkillGroup[];
+}
+
+const { groups } = Astro.props;
+---
+
+<ul class="skill-list" role="list">
+	{groups.map((group) => (
+		<li class="row">
+			<h3 class="label group-title">{group.data.title}</h3>
+
+			<div class="body">
+				<ul class="items" role="list">
+					{group.data.items.map((item) => (
+						<li>
+							{item.name}
+							{item.level && <span class="label level">{item.level}</span>}
+						</li>
+					))}
+				</ul>
+
+				{group.data.subgroups?.map((sub) => (
+					<div class="subgroup">
+						<p class="label sub-label">{sub.label}</p>
+						<ul class="items" role="list">
+							{sub.items.map((item) => (
+								<li>
+									{item.name}
+									{item.level && <span class="label level">{item.level}</span>}
+								</li>
+							))}
+						</ul>
+					</div>
+				))}
+			</div>
+		</li>
+	))}
+</ul>
+
+<style>
+	.skill-list {
+		padding: 0;
+		list-style: none;
+	}
+
+	.row {
+		display: grid;
+		grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
+		gap: var(--space-4) var(--space-8);
+		padding: var(--space-6) var(--gutter);
+		border-bottom: var(--hairline);
+	}
+
+	.group-title {
+		padding-top: 0.35em;
+		color: var(--accent);
+		font-weight: 400;
+		letter-spacing: var(--tracking-label);
+		line-height: inherit;
+	}
+
+	/* Items flow as text, separated by " · " (no cards). */
+	.items {
+		display: flex;
+		flex-wrap: wrap;
+		padding: 0;
+		list-style: none;
+		font-size: var(--text-lg);
+	}
+
+	.items li:not(:last-child)::after {
+		content: '·';
+		margin-inline: 0.5em;
+		color: var(--muted);
+	}
+
+	.level {
+		margin-left: 0.4em;
+		color: var(--muted);
+		text-transform: lowercase;
+	}
+
+	.subgroup {
+		margin-top: var(--space-4);
+	}
+
+	.sub-label {
+		margin-bottom: var(--space-1);
+		color: var(--muted);
+	}
+
+	.subgroup .items {
+		font-size: var(--text-base);
+	}
+
+	@media (max-width: 40rem) {
+		.row {
+			grid-template-columns: minmax(0, 1fr);
+			gap: var(--space-2);
+		}
+	}
+</style>

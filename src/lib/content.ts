@@ -33,6 +33,14 @@ export async function getEducation(): Promise<Education[]> {
 	return entries.sort((a, b) => a.data.order - b.data.order);
 }
 
+export type SkillGroup = CollectionEntry<'skills'>;
+
+/** Skill groups, sorted by `order`. */
+export async function getSkills(): Promise<SkillGroup[]> {
+	const groups = await getCollection('skills');
+	return groups.sort((a, b) => a.data.order - b.data.order);
+}
+
 /** Display number for a project's position in the list: 0 → "01". */
 export function projectNumber(index: number): string {
 	return String(index + 1).padStart(2, '0');

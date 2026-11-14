@@ -66,4 +66,28 @@ const education = defineCollection({
 	}),
 });
 
-export const collections = { home, projects, experience, education };
+// A skill, optionally marked as still being learned or at a basic level.
+const skill = z.object({
+	name: z.string(),
+	level: z.enum(['learning', 'basic']).optional(),
+});
+
+// One Markdown file per skill group.
+const skills = defineCollection({
+	loader: glob({ pattern: '*.md', base: './src/content/skills' }),
+	schema: z.object({
+		title: z.string(),
+		order: z.number(),
+		items: z.array(skill).min(1),
+		subgroups: z
+			.array(
+				z.object({
+					label: z.string(),
+					items: z.array(skill).min(1),
+				}),
+			)
+			.optional(),
+	}),
+});
+
+export const collections = { home, projects, experience, education, skills };
