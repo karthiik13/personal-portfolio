@@ -1,0 +1,105 @@
+---
+import type { Experience } from '../lib/content';
+
+interface Props {
+	jobs: Experience[];
+}
+
+const { jobs } = Astro.props;
+---
+
+<ul class="experience-list" role="list">
+	{jobs.map((job) => (
+		<li class="row">
+			<div class="cell side">
+				<h3>{job.data.company}</h3>
+				<ul class="roles" role="list">
+					{job.data.roles.map((role) => (
+						<li>
+							<p class="role-title">{role.title}</p>
+							<p class="label period">{role.period}</p>
+						</li>
+					))}
+				</ul>
+			</div>
+
+			<div class="cell body">
+				<p class="context">{job.data.context}</p>
+				<ul class="highlights">
+					{job.data.highlights.map((highlight) => (
+						<li>{highlight}</li>
+					))}
+				</ul>
+			</div>
+		</li>
+	))}
+</ul>
+
+<style>
+	.experience-list {
+		padding: 0;
+		list-style: none;
+	}
+
+	/* Two hairline cells; they stack when there isn't room side by side. */
+	.row {
+		display: flex;
+		flex-wrap: wrap;
+		border-bottom: var(--hairline);
+	}
+
+	.cell {
+		padding: var(--space-8) var(--gutter);
+	}
+
+	.side {
+		flex: 1 1 18rem;
+	}
+
+	.body {
+		flex: 999 1 28rem;
+		border-left: var(--hairline);
+		margin-left: -1px;
+		box-shadow: 0 -1px 0 var(--line);
+	}
+
+	h3 {
+		font-size: var(--text-xl);
+	}
+
+	.roles {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-4);
+		margin-top: var(--space-6);
+		padding: 0;
+		list-style: none;
+	}
+
+	.role-title {
+		font-weight: 500;
+	}
+
+	.period {
+		margin-top: var(--space-1);
+		color: var(--muted);
+	}
+
+	.context {
+		max-width: 44rem;
+		color: var(--muted);
+	}
+
+	.highlights {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-3);
+		max-width: 44rem;
+		margin-top: var(--space-6);
+		padding-left: var(--space-6);
+	}
+
+	.highlights li::marker {
+		color: var(--accent);
+	}
+</style>

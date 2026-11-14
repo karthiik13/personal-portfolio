@@ -1,0 +1,76 @@
+---
+import type { Education } from '../lib/content';
+
+interface Props {
+	entries: Education[];
+}
+
+const { entries } = Astro.props;
+---
+
+<div class="row">
+	<div class="cell side">
+		<h3>Education & awards</h3>
+	</div>
+
+	<ul class="cell body entries" role="list">
+		{entries.map((entry) => (
+			<li>
+				<p class="label kind">
+					{entry.data.kind === 'award' ? 'Award' : 'Education'} · {entry.data.year}
+				</p>
+				<p class="title">{entry.data.title}</p>
+				<p class="detail">{entry.data.detail}</p>
+			</li>
+		))}
+	</ul>
+</div>
+
+<style>
+	.row {
+		display: flex;
+		flex-wrap: wrap;
+		border-bottom: var(--hairline);
+	}
+
+	.cell {
+		padding: var(--space-8) var(--gutter);
+	}
+
+	.side {
+		flex: 1 1 18rem;
+	}
+
+	.body {
+		flex: 999 1 28rem;
+		border-left: var(--hairline);
+		margin-left: -1px;
+		box-shadow: 0 -1px 0 var(--line);
+	}
+
+	h3 {
+		font-size: var(--text-xl);
+	}
+
+	.entries {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-6);
+		margin: 0;
+		list-style: none;
+	}
+
+	.kind {
+		color: var(--accent);
+	}
+
+	.title {
+		margin-top: var(--space-1);
+		font-weight: 500;
+	}
+
+	.detail {
+		max-width: 44rem;
+		color: var(--muted);
+	}
+</style>

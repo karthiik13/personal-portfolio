@@ -37,4 +37,33 @@ const projects = defineCollection({
 	}),
 });
 
-export const collections = { home, projects };
+// One Markdown file per employer.
+const experience = defineCollection({
+	loader: glob({ pattern: '*.md', base: './src/content/experience' }),
+	schema: z.object({
+		company: z.string(),
+		roles: z.array(
+			z.object({
+				title: z.string(),
+				period: z.string(),
+			}),
+		),
+		context: z.string(),
+		highlights: z.array(z.string()).min(1),
+		order: z.number(),
+	}),
+});
+
+// One Markdown file per degree or award.
+const education = defineCollection({
+	loader: glob({ pattern: '*.md', base: './src/content/education' }),
+	schema: z.object({
+		kind: z.enum(['education', 'award']),
+		title: z.string(),
+		detail: z.string(),
+		year: z.string(),
+		order: z.number(),
+	}),
+});
+
+export const collections = { home, projects, experience, education };

@@ -18,6 +18,21 @@ export async function getProjects(): Promise<Project[]> {
 	return projects.sort((a, b) => a.data.order - b.data.order);
 }
 
+export type Experience = CollectionEntry<'experience'>;
+export type Education = CollectionEntry<'education'>;
+
+/** Employers, sorted by `order`. */
+export async function getExperience(): Promise<Experience[]> {
+	const entries = await getCollection('experience');
+	return entries.sort((a, b) => a.data.order - b.data.order);
+}
+
+/** Degrees and awards, sorted by `order`. */
+export async function getEducation(): Promise<Education[]> {
+	const entries = await getCollection('education');
+	return entries.sort((a, b) => a.data.order - b.data.order);
+}
+
 /** Display number for a project's position in the list: 0 → "01". */
 export function projectNumber(index: number): string {
 	return String(index + 1).padStart(2, '0');
