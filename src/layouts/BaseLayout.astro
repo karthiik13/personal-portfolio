@@ -22,8 +22,10 @@ const profile = await getProfile();
 		<!--
 			Runs before first paint so the saved theme is applied immediately (no flash).
 			is:inline keeps Astro from bundling/deferring it.
+			The "js" class lets CSS hide scroll-reveal elements only when JS can reveal them.
 		-->
 		<script is:inline>
+			document.documentElement.classList.add('js');
 			try {
 				const theme = localStorage.getItem('theme');
 				if (theme === 'light' || theme === 'dark') {
@@ -35,6 +37,18 @@ const profile = await getProfile();
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>{title}</title>
 		<meta name="description" content={description} />
+
+		<!-- Link previews (LinkedIn, WhatsApp, X…). og:url and og:image are added at deploy time. -->
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Karthik Sudarsan" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta name="twitter:card" content="summary" />
+
+		<!-- Mobile browser toolbar colour, matching --bg in each theme. -->
+		<meta name="theme-color" content="#f4f2ec" media="(prefers-color-scheme: light)" />
+		<meta name="theme-color" content="#0b0b0c" media="(prefers-color-scheme: dark)" />
+
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
@@ -50,6 +64,32 @@ const profile = await getProfile();
 		<SiteFooter links={profile.links} location={profile.location} />
 	</body>
 </html>
+
+<script>
+	// Scroll reveal: elements with [data-reveal] fade/slide in once when they enter the viewport.
+	// CSS only hides them under html.js + prefers-reduced-motion: no-preference (see global.css).
+	const elements = document.querySelectorAll<HTMLElement>('[data-reveal]');
+
+	if ('IntersectionObserver' in window) {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries
+					.filter((entry) => entry.isIntersecting)
+					.forEach((entry, i) => {
+						const el = entry.target as HTMLElement;
+						// Stagger items that enter together (e.g. a list of rows).
+						el.style.transitionDelay = `${i * 80}ms`;
+						el.classList.add('is-visible');
+						observer.unobserve(el);
+					});
+			},
+			{ rootMargin: '0px 0px -10% 0px' },
+		);
+		elements.forEach((el) => observer.observe(el));
+	} else {
+		elements.forEach((el) => el.classList.add('is-visible'));
+	}
+</script>
 
 <style>
 	/* Hidden until focused with the keyboard. */

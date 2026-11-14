@@ -10,7 +10,7 @@ const { groups } = Astro.props;
 
 <ul class="skill-list" role="list">
 	{groups.map((group) => (
-		<li class="row">
+		<li class="row" data-reveal>
 			<h3 class="label group-title">{group.data.title}</h3>
 
 			<div class="body">

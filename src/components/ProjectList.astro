@@ -13,7 +13,7 @@ const { projects } = Astro.props;
 
 <ol class="project-list" role="list">
 	{projects.map((project, i) => (
-		<li class="row">
+		<li class="row" data-reveal>
 			<span class="num label">{projectNumber(i)}</span>
 
 			<div class="main">
@@ -27,11 +27,11 @@ const { projects } = Astro.props;
 			<div class="meta">
 				<Tags tags={project.data.tags} />
 				<div class="links">
-					<ExternalLink class="label" href={project.data.github}>
+					<ExternalLink class="label u-link" href={project.data.github}>
 						Code
 					</ExternalLink>
 					{project.data.demo && (
-						<ExternalLink class="label" href={project.data.demo}>
+						<ExternalLink class="label u-link" href={project.data.demo}>
 							Demo
 						</ExternalLink>
 					)}
@@ -98,14 +98,6 @@ const { projects } = Astro.props;
 
 	.links :global(a) {
 		padding-block: var(--space-2);
-		text-decoration: underline;
-		text-decoration-color: var(--line);
-		text-underline-offset: 0.3em;
-	}
-
-	.links :global(a:hover) {
-		color: var(--accent);
-		text-decoration-color: currentColor;
 	}
 
 	/* Phones/tablets: number in its own narrow column, everything else stacks. */

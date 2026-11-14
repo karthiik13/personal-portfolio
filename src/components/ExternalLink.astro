@@ -10,6 +10,8 @@ const { href, class: className } = Astro.props;
 
 <a class:list={['external', className]} href={href} target="_blank" rel="noopener">
 	<slot />
-	<span aria-hidden="true"> ↗</span>
+	<span class="arrow" aria-hidden="true">
+		↗
+	</span>
 	<span class="visually-hidden"> (opens in a new tab)</span>
 </a>

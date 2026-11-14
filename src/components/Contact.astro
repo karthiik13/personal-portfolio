@@ -12,10 +12,13 @@ const { email, availability } = Astro.props;
 <section id="contact" class="contact" aria-labelledby="contact-heading">
 	<SectionHeader number="04" title="Contact" id="contact-heading" />
 
-	<div class="body">
+	<div class="body" data-reveal>
 		<p class="availability">{availability}</p>
 		<a class="cta" href={`mailto:${email}`}>
-			Let’s talk<span aria-hidden="true"> ↗</span>
+			Let’s talk
+			<span class="arrow" aria-hidden="true">
+				↗
+			</span>
 			<span class="visually-hidden">, email Karthik</span>
 		</a>
 	</div>
@@ -43,8 +46,18 @@ const { email, availability } = Astro.props;
 		text-decoration: none;
 	}
 
+	.cta {
+		transition: color 200ms ease;
+	}
+
 	.cta:hover,
 	.cta:focus-visible {
 		color: var(--accent);
+	}
+
+	/* Bigger diagonal nudge to match the huge type. */
+	.cta:hover .arrow,
+	.cta:focus-visible .arrow {
+		transform: translate(0.08em, -0.08em);
 	}
 </style>

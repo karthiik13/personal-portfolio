@@ -16,18 +16,18 @@ const year = new Date().getFullYear(); // build year
 		{links.map((link) => (
 			<li class="cell">
 				{link.href.startsWith('http') ? (
-					<ExternalLink class="label" href={link.href}>
+					<ExternalLink class="label u-link" href={link.href}>
 						{link.label}
 					</ExternalLink>
 				) : (
-					<a class="label" href={link.href}>
+					<a class="label u-link" href={link.href}>
 						{link.label}
 					</a>
 				)}
 			</li>
 		))}
 		<li class="cell label muted">{location}</li>
-		<li class="cell label muted grow">© {year} · Built with Astro + Claude Code</li>
+		<li class="cell label muted grow">© {year} Karthik Sudarsan</li>
 	</ul>
 </footer>
 
@@ -61,13 +61,5 @@ const year = new Date().getFullYear(); // build year
 
 	.muted {
 		color: var(--muted);
-	}
-
-	.cell a {
-		text-decoration: none;
-	}
-
-	.cell a:hover {
-		color: var(--accent);
 	}
 </style>

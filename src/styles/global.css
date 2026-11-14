@@ -145,6 +145,25 @@ a {
 }
 
 /* ==========================================================================
+   Scroll reveal
+   Hidden only when JS is running (html.js) AND motion is allowed,
+   so content never gets stuck invisible.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+	html.js [data-reveal] {
+		transition:
+			opacity 600ms ease,
+			transform 600ms cubic-bezier(0.2, 0.7, 0.2, 1);
+	}
+
+	html.js [data-reveal]:not(.is-visible) {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+}
+
+/* ==========================================================================
    Utilities
    ========================================================================== */
 
@@ -153,6 +172,37 @@ a {
 	max-width: var(--max-width);
 	margin-inline: auto;
 	border-inline: var(--hairline);
+}
+
+/* Link hover: a thin accent line grows left → right under the text. */
+.u-link {
+	text-decoration: none;
+	background-image: linear-gradient(var(--accent), var(--accent));
+	background-repeat: no-repeat;
+	background-position: left bottom;
+	background-size: 0% 1px;
+	background-origin: content-box;
+	background-clip: content-box;
+	transition:
+		background-size 300ms ease,
+		color 200ms ease;
+}
+
+.u-link:hover,
+.u-link:focus-visible {
+	background-size: 100% 1px;
+	color: var(--accent);
+}
+
+/* The ↗ on external links nudges up-right on hover. */
+.arrow {
+	display: inline-block;
+	transition: transform 200ms ease;
+}
+
+a:hover > .arrow,
+a:focus-visible > .arrow {
+	transform: translate(2px, -2px);
 }
 
 /* Small uppercase mono label (nav, tags, section labels). */
