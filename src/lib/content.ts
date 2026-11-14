@@ -5,6 +5,14 @@ import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
 
 export type HeroContent = CollectionEntry<'home'>['data'];
 export type Project = CollectionEntry<'projects'>;
+export type Profile = CollectionEntry<'profile'>['data'];
+export type ProfileLink = Profile['links'][number];
+
+export async function getProfile(): Promise<Profile> {
+	const entry = await getEntry('profile', 'profile');
+	if (!entry) throw new Error('Missing src/content/profile/profile.md');
+	return entry.data;
+}
 
 export async function getHero(): Promise<HeroContent> {
 	const entry = await getEntry('home', 'hero');

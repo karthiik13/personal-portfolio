@@ -9,12 +9,6 @@ const home = defineCollection({
 	schema: z.object({
 		heading: z.string(),
 		intro: z.array(z.string()).min(1),
-		links: z.array(
-			z.object({
-				label: z.string(),
-				href: z.string(),
-			}),
-		),
 		now: z.string(),
 		// Path under /public, e.g. "/images/karthik.jpg". Omit to show the placeholder.
 		photo: z.string().optional(),
@@ -90,4 +84,20 @@ const skills = defineCollection({
 	}),
 });
 
-export const collections = { home, projects, experience, education, skills };
+// Contact details shared by the hero, contact section and footer (single file: profile.md).
+const profile = defineCollection({
+	loader: glob({ pattern: '*.md', base: './src/content/profile' }),
+	schema: z.object({
+		email: z.email(),
+		location: z.string(),
+		availability: z.string(),
+		links: z.array(
+			z.object({
+				label: z.string(),
+				href: z.string(),
+			}),
+		),
+	}),
+});
+
+export const collections = { home, profile, projects, experience, education, skills };

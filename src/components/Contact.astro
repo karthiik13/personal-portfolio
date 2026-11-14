@@ -1,0 +1,50 @@
+---
+import SectionHeader from './SectionHeader.astro';
+
+interface Props {
+	email: string;
+	availability: string;
+}
+
+const { email, availability } = Astro.props;
+---
+
+<section id="contact" class="contact" aria-labelledby="contact-heading">
+	<SectionHeader number="04" title="Contact" id="contact-heading" />
+
+	<div class="body">
+		<p class="availability">{availability}</p>
+		<a class="cta" href={`mailto:${email}`}>
+			Let’s talk<span aria-hidden="true"> ↗</span>
+			<span class="visually-hidden">, email Karthik</span>
+		</a>
+	</div>
+</section>
+
+<style>
+	.body {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-6);
+		padding: var(--space-12) var(--gutter) var(--space-16);
+	}
+
+	.availability {
+		font-size: var(--text-lg);
+		color: var(--muted);
+	}
+
+	.cta {
+		align-self: flex-start;
+		font-size: var(--text-display);
+		font-weight: 600;
+		letter-spacing: var(--tracking-tight);
+		line-height: var(--leading-tight);
+		text-decoration: none;
+	}
+
+	.cta:hover,
+	.cta:focus-visible {
+		color: var(--accent);
+	}
+</style>

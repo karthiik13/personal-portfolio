@@ -1,7 +1,7 @@
 ---
-import type { HeroContent } from '../lib/content';
+import type { HeroContent, ProfileLink } from '../lib/content';
 
-type Props = HeroContent;
+type Props = HeroContent & { links: ProfileLink[] };
 
 const { heading, intro, links, now, photo, photoAlt } = Astro.props;
 const isExternal = (href: string) => href.startsWith('http');

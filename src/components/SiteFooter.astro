@@ -1,0 +1,73 @@
+---
+import type { ProfileLink } from '../lib/content';
+import ExternalLink from './ExternalLink.astro';
+
+interface Props {
+	links: ProfileLink[];
+	location: string;
+}
+
+const { links, location } = Astro.props;
+const year = new Date().getFullYear(); // build year
+---
+
+<footer class="frame site-footer">
+	<ul class="cells" role="list">
+		{links.map((link) => (
+			<li class="cell">
+				{link.href.startsWith('http') ? (
+					<ExternalLink class="label" href={link.href}>
+						{link.label}
+					</ExternalLink>
+				) : (
+					<a class="label" href={link.href}>
+						{link.label}
+					</a>
+				)}
+			</li>
+		))}
+		<li class="cell label muted">{location}</li>
+		<li class="cell label muted grow">© {year} · Built with Astro + Claude Code</li>
+	</ul>
+</footer>
+
+<style>
+	.site-footer {
+		border-top: var(--hairline);
+	}
+
+	/* Bordered cells that wrap on narrow screens. Negative margins let
+	   the cell borders overlap the frame instead of doubling up. */
+	.cells {
+		display: flex;
+		flex-wrap: wrap;
+		margin: 0 -1px -1px 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.cell {
+		display: flex;
+		align-items: center;
+		padding: var(--space-4) var(--gutter);
+		border-right: var(--hairline);
+		border-bottom: var(--hairline);
+	}
+
+	.grow {
+		flex: 1 1 auto;
+		justify-content: flex-end;
+	}
+
+	.muted {
+		color: var(--muted);
+	}
+
+	.cell a {
+		text-decoration: none;
+	}
+
+	.cell a:hover {
+		color: var(--accent);
+	}
+</style>
