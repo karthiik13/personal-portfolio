@@ -1,5 +1,6 @@
 {
-  "name": "portfolio",
+  "name": "personal-portfolio",
+  "description": "Personal portfolio of Karthik Sudarsan, software engineer building with AI.",
   "type": "module",
   "version": "0.0.1",
   "engines": {
