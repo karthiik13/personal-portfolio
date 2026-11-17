@@ -3,7 +3,7 @@ title: This site
 summary: My portfolio, built with Astro and TypeScript, developed with Claude Code from a written spec.
 tags: [Astro, TypeScript, Claude Code]
 order: 4
-github: https://github.com/karthiik13
+github: https://github.com/karthiik13/personal-portfolio
 ---
 
 ## Problem
