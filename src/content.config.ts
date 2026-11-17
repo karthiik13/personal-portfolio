@@ -10,9 +10,6 @@ const home = defineCollection({
 		heading: z.string(),
 		intro: z.array(z.string()).min(1),
 		now: z.string(),
-		// Path under /public, e.g. "/images/karthik.jpg". Omit to show the placeholder.
-		photo: z.string().optional(),
-		photoAlt: z.string().optional(),
 	}),
 });
 
