@@ -19,7 +19,7 @@ You're looking at it.
 - A static Astro site: pages are plain HTML at build time, with only a few lines of client-side JavaScript (theme toggle, scroll reveal).
 - All copy lives in Markdown content collections with typed schemas, so the build fails on missing or misspelled content.
 - Plain CSS design tokens for colour, type and spacing, with light and dark themes that load without a flash.
-- A written spec (`CLAUDE.md`) sets the structure, design rules and code conventions that every change follows.
+- A written spec sets the structure, design rules and code conventions that every change follows.
 
 ## Stack
 
