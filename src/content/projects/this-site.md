@@ -25,8 +25,6 @@ You're looking at it.
 
 Astro 7 · TypeScript (strict) · plain CSS · Prettier · `astro check` · Claude Code
 
-Lighthouse: 100 on Performance, Accessibility, Best Practices and SEO (measured locally).
-
 ## What I learned
 
 - A clear written spec plus "plan before code" keeps an AI coding agent on track.
