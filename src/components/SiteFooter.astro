@@ -3,11 +3,12 @@ import type { ProfileLink } from '../lib/content';
 import ExternalLink from './ExternalLink.astro';
 
 interface Props {
+	name: string;
 	links: ProfileLink[];
 	location: string;
 }
 
-const { links, location } = Astro.props;
+const { name, links, location } = Astro.props;
 const year = new Date().getFullYear(); // build year
 ---
 
@@ -27,7 +28,9 @@ const year = new Date().getFullYear(); // build year
 			</li>
 		))}
 		<li class="cell label muted">{location}</li>
-		<li class="cell label muted grow">© {year} Karthik Sudarsan</li>
+		<li class="cell label muted grow">
+			© {year} {name}
+		</li>
 	</ul>
 </footer>
 

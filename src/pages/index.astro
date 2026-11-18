@@ -24,12 +24,9 @@ const education = await getEducation();
 const skills = await getSkills();
 ---
 
-<BaseLayout
-	title="Karthik Sudarsan — Software engineer"
-	description="Software engineer moving into AI engineering. Projects, experience and contact."
->
+<BaseLayout description={`${profile.tagline} Projects, experience and contact.`}>
 	<main id="main" class="frame">
-		<Hero {...hero} links={profile.links} />
+		<Hero {...hero} name={profile.name} tagline={profile.tagline} links={profile.links} />
 
 		<section id="projects" aria-labelledby="projects-heading">
 			<SectionHeader number="01" title="Projects" id="projects-heading" />
@@ -47,6 +44,6 @@ const skills = await getSkills();
 			<SkillList groups={skills} />
 		</section>
 
-		<Contact email={profile.email} availability={profile.availability} />
+		<Contact name={profile.name} email={profile.email} availability={profile.availability} />
 	</main>
 </BaseLayout>

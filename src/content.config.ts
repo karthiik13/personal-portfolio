@@ -7,7 +7,6 @@ import { z } from 'astro/zod';
 const home = defineCollection({
 	loader: glob({ pattern: '*.md', base: './src/content/home' }),
 	schema: z.object({
-		heading: z.string(),
 		intro: z.array(z.string()).min(1),
 		now: z.string(),
 	}),
@@ -81,10 +80,17 @@ const skills = defineCollection({
 	}),
 });
 
-// Contact details shared by the hero, contact section and footer (single file: profile.md).
+// Identity and contact details shared across the site (single file: profile.md).
 const profile = defineCollection({
 	loader: glob({ pattern: '*.md', base: './src/content/profile' }),
 	schema: z.object({
+		name: z.string(),
+		/** Short role for page titles, e.g. "iOS engineer". */
+		role: z.string(),
+		/** One-line positioning shown under the name in the hero. */
+		tagline: z.string(),
+		/** Path to the résumé PDF in public/. The nav button is hidden while this is unset. */
+		resume: z.string().startsWith('/').optional(),
 		email: z.email(),
 		location: z.string(),
 		availability: z.string(),

@@ -6,14 +6,16 @@ import { getProfile } from '../lib/content';
 import '../styles/global.css';
 
 interface Props {
-	title: string;
+	/** Page name; the site owner's name is appended. Omit on the home page. */
+	title?: string;
 	description: string;
 }
 
 const { title, description } = Astro.props;
 
-// The layout is the page shell, so it loads data for shared parts (the footer).
+// The layout is the page shell, so it loads data for shared parts (nav, footer, titles).
 const profile = await getProfile();
+const fullTitle = title ? `${title} — ${profile.name}` : `${profile.name} — ${profile.role}`;
 ---
 
 <!doctype html>
@@ -35,13 +37,13 @@ const profile = await getProfile();
 		</script>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>{title}</title>
+		<title>{fullTitle}</title>
 		<meta name="description" content={description} />
 
 		<!-- Link previews (LinkedIn, WhatsApp, X…). og:url and og:image are added at deploy time. -->
 		<meta property="og:type" content="website" />
-		<meta property="og:site_name" content="Karthik Sudarsan" />
-		<meta property="og:title" content={title} />
+		<meta property="og:site_name" content={profile.name} />
+		<meta property="og:title" content={fullTitle} />
 		<meta property="og:description" content={description} />
 		<meta name="twitter:card" content="summary" />
 
@@ -60,9 +62,9 @@ const profile = await getProfile();
 		<a class="skip-link label" href="#main">
 			Skip to content
 		</a>
-		<Nav />
+		<Nav name={profile.name} resume={profile.resume} />
 		<slot />
-		<SiteFooter links={profile.links} location={profile.location} />
+		<SiteFooter name={profile.name} links={profile.links} location={profile.location} />
 	</body>
 </html>
 

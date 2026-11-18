@@ -24,7 +24,7 @@ const { title, summary, tags, github, demo, sample } = project.data;
 const { Content } = await render(project);
 ---
 
-<BaseLayout title={`${title} — Karthik Sudarsan`} description={summary}>
+<BaseLayout title={title} description={summary}>
 	<main id="main" class="frame">
 		<article>
 			<header class="project-header">

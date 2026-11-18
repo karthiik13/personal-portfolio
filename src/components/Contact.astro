@@ -2,11 +2,13 @@
 import SectionHeader from './SectionHeader.astro';
 
 interface Props {
+	name: string;
 	email: string;
 	availability: string;
 }
 
-const { email, availability } = Astro.props;
+const { name, email, availability } = Astro.props;
+const firstName = name.split(' ')[0];
 ---
 
 <section id="contact" class="contact" aria-labelledby="contact-heading">
@@ -19,7 +21,7 @@ const { email, availability } = Astro.props;
 			<span class="arrow" aria-hidden="true">
 				↗
 			</span>
-			<span class="visually-hidden">, email Karthik</span>
+			<span class="visually-hidden">, email {firstName}</span>
 		</a>
 	</div>
 </section>

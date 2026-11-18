@@ -1,10 +1,19 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
 
+interface Props {
+	name: string;
+	/** Résumé PDF path; the button is hidden when unset. */
+	resume?: string;
+}
+
+const { name, resume } = Astro.props;
+
 // Leading "/" keeps these working from project pages too.
 const links = [
 	{ href: '/#projects', label: 'Projects' },
 	{ href: '/#experience', label: 'Experience' },
+	{ href: '/#skills', label: 'Skills' },
 	{ href: '/#contact', label: 'Contact' },
 ];
 ---
@@ -12,7 +21,7 @@ const links = [
 <header class="frame site-header">
 	<nav class="nav" aria-label="Main">
 		<a class="name" href="/">
-			Karthik Sudarsan
+			{name}
 		</a>
 
 		<ul class="links" role="list">
@@ -27,10 +36,12 @@ const links = [
 
 		<div class="actions">
 			<ThemeToggle />
-			<a class="resume label" href="/Karthik-Sudarsan-Resume.pdf" target="_blank" rel="noopener">
-				Résumé <span aria-hidden="true">↓</span>
-				<span class="visually-hidden">(PDF, opens in a new tab)</span>
-			</a>
+			{resume && (
+				<a class="resume label" href={resume} target="_blank" rel="noopener">
+					Résumé <span aria-hidden="true">↓</span>
+					<span class="visually-hidden">(PDF, opens in a new tab)</span>
+				</a>
+			)}
 		</div>
 	</nav>
 </header>

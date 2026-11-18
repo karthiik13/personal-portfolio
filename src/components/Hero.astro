@@ -1,18 +1,18 @@
 ---
 import type { HeroContent, ProfileLink } from '../lib/content';
 
-type Props = HeroContent & { links: ProfileLink[] };
+type Props = HeroContent & { name: string; tagline: string; links: ProfileLink[] };
 
-const { heading, intro, links, now } = Astro.props;
+const { name, tagline, intro, links, now } = Astro.props;
 const isExternal = (href: string) => href.startsWith('http');
 ---
 
 <section class="hero" aria-labelledby="hero-heading">
 	<div class="cell main-cell">
-		<h1 id="hero-heading">
-			<span class="visually-hidden">Karthik Sudarsan, </span>
-			{heading}
-		</h1>
+		<div class="title">
+			<h1 id="hero-heading">{name}</h1>
+			<p class="tagline">{tagline}</p>
+		</div>
 
 		<div class="details">
 			<div class="intro">
@@ -71,6 +71,16 @@ const isExternal = (href: string) => href.startsWith('http');
 		font-size: var(--text-display);
 		/* Lines of a two-line display heading sit tight, like a printed poster. */
 		line-height: 0.9;
+	}
+
+	.tagline {
+		margin-top: var(--space-6);
+		max-width: 40rem;
+		font-size: var(--text-xl);
+		font-weight: 500;
+		letter-spacing: -0.03em;
+		line-height: 1.15;
+		text-wrap: balance;
 	}
 
 	/* Intro on the left, links bottom-right; wraps to a stack on narrow screens. */
