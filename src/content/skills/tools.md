@@ -1,13 +1,13 @@
 ---
-title: Tools
+title: Tools & delivery
 order: 4
 items:
   - name: Xcode
   - name: Git
-  - name: Azure DevOps (CI/CD)
   - name: Swift Package Manager
   - name: CocoaPods
   - name: SwiftLint
+  - name: Azure DevOps (CI/CD)
   - name: Claude Code
 subgroups:
   - label: Testing & monitoring
