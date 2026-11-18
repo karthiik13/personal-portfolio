@@ -1,7 +1,7 @@
 ---
 name: Karthik Sudarsan
 role: iOS engineer
-tagline: iOS engineer. On-device ML today, LLMs and RAG next.
+tagline: iOS engineer building on-device and LLM-powered apps.
 email: karthiksudarsan13@gmail.com
 location: Kochi, Kerala, India
 availability: Open to software and AI engineering roles.
